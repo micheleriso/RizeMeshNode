@@ -13,6 +13,10 @@ on an Android phone:
  * NAT
  * DHCP server
  * WLAN ad-hoc setup
+ * OLSRD
+ 
+ Olsrd 0.6.1 was cross-compiled for Android by Michele Riso and Giuseppe Zerbo.
+ Olsrd was developed by http://www.olsr.org/
 
 How to build Rize Mesh Node
 ---------------------
