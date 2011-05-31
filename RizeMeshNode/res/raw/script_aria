@@ -1,0 +1,40 @@
+################################################################################
+# 																			   #
+#  This file is part of Rize Mesh Node										   #
+#  Copyright (C) 2011 by Michele Riso and Giuseppe Zerbo					   #
+# 																			   #
+#  This file is derived from Barnacle Wifi Tether							   #
+#  Copyright (C) 2010 by Szymon Jakubczak									   #
+#																			   #
+#  This program is free software: you can redistribute it and/or modify		   #
+#  it under the terms of the GNU General Public License as published by		   #
+#  the Free Software Foundation, either version 3 of the License, or		   #
+#  (at your option) any later version.										   #
+#																			   #	
+#  This program is distributed in the hope that it will be useful,			   #
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of			   #
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			   #
+#  GNU General Public License for more details.								   #
+#																			   #	
+#  You should have received a copy of the GNU General Public License		   #
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#																			   #
+################################################################################
+
+#!/system/bin/sh
+
+set -e
+
+MODULE=/system/lib/modules/bcm4329.ko
+FIRMWARE=/sdcard/fw_bcm4329.bin
+
+load() {
+    ls > /dev/null 2>&1 $FIRMWARE || ( echo >&2 "aria: $FIRMWARE not found!" ; exit )
+    insmod $MODULE firmware_path=$FIRMWARE
+}
+
+unload() {
+    rmmod $MODULE
+}
+
+$1

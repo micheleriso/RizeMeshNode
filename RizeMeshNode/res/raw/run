@@ -1,0 +1,56 @@
+################################################################################
+# 																			   #
+#  This file is part of Rize Mesh Node										   #
+#  Copyright (C) 2011 by Michele Riso and Giuseppe Zerbo					   #
+# 																			   #
+#  This file is derived from Barnacle Wifi Tether							   #
+#  Copyright (C) 2010 by Szymon Jakubczak									   #
+#																			   #
+#  This program is free software: you can redistribute it and/or modify		   #
+#  it under the terms of the GNU General Public License as published by		   #
+#  the Free Software Foundation, either version 3 of the License, or		   #
+#  (at your option) any later version.										   #
+#																			   #	
+#  This program is distributed in the hope that it will be useful,			   #
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of			   #
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			   #
+#  GNU General Public License for more details.								   #
+#																			   #	
+#  You should have received a copy of the GNU General Public License		   #
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#																			   #
+################################################################################
+
+
+
+#!/system/bin/sh
+# main runner (process manager) for barnacle, root required
+
+cd ${brncl_path:-.}
+
+# load the driver
+# NOTE: Android's shell is ash and there is no "test" or "["
+: ${brncl_lan_script:=wifi}
+chmod 750 ./$brncl_lan_script
+./$brncl_lan_script load
+
+# necessary hack for HTC phones
+type ip >/dev/null 2>&1 && ip route del table gprs default >/dev/null 2>&1
+
+# ifconfig $brncl_if_lan $brncl_lan_gw netmask $brncl_lan_netmask up
+./wifi config
+
+#./dhcp &
+#./nat &
+
+#Start OLSRD as Daemon 
+#/data/local/bin/olsrd &
+
+./olsrd -f ./olsrd_conf 2> /dev/null > /dev/null &
+
+# the association loop
+./wifi assoc
+
+# cleanup
+./wifi unload
+

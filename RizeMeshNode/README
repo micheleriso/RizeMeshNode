@@ -1,0 +1,37 @@
+Rize Mesh Node
+====================
+
+Rize Mesh Node was developed by:
+
+Michele Riso
+Giuseppe Zerbo
+
+Rize Mesh Node is derived from Barnacle, developed by szym.net
+
+Rize Mesh Node is a combination of tools to setup a Mesh Network 
+on an Android phone:
+ * NAT
+ * DHCP server
+ * WLAN ad-hoc setup
+
+How to build Rize Mesh Node
+---------------------
+
+Prerequisites:                                                                                                                                                                                                       
+1) Android NDK r4 or above                                                                                                                                                                                           
+2) Eclipse and ADT plugin                                                                                                                                                                                            
+                                                                                                                                                                                                                     
+To build native components enter Rize Mesh Node root directory and run                                                                                                                                                     
+$NDK/ndk-build                                                                                                                                                                                                       
+                                                                                                                                                                                                                     
+where NDK=path-to-your-ndk-directory                                                                                                                                                                                 
+                                                                                                                                                                                                                     
+To build the Android app import the existing project into Eclipse and export                                                                                                                                         
+an .apk file.
+
+Questions?
+----------
+
+For more information e-mail: zeroc87@gmail.com or peppexmail@gmail.com
+
+

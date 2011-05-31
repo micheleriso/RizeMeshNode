@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  This file is part of Rize Mesh Node
+  Copyright (C) 2011 by Michele Riso and Giuseppe Zerbo
+
+  This file is derived from Barnacle Wifi Tether
+  Copyright (C) 2010 by Szymon Jakubczak
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="IP Configuration">
+		<PreferenceScreen android:title="IP Configuration"
+			android:summary="IP Host Configuration">
+			<net.rize.mesh.IPPreference android:title="IP Address"
+				android:key="@string/lan_gw" android:defaultValue="192.168.5.1"
+				android:singleLine="true" />
+			<net.rize.mesh.IPPreference android:title="Netmask"
+				android:key="@string/lan_netmask" android:defaultValue="255.255.255.0"
+				android:singleLine="true" />
+		</PreferenceScreen>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="Wireless LAN">
+		<EditTextPreference android:title="SSID (Network Name)"
+			android:key="@string/lan_essid" android:defaultValue="mesh"
+			android:singleLine="true" />
+		<net.rize.mesh.MACPreference
+			android:title="BSSID (Optional)" android:key="@string/lan_bssid"
+			android:singleLine="true" android:hint="unique MAC address" />
+		<ListPreference android:title="Channel" android:key="@string/lan_channel"
+			android:defaultValue="6" android:entries="@array/channel_names"
+			android:entryValues="@array/channel_values" />
+		<ListPreference android:title="Custom Wifi Ad-hoc"
+			android:key="@string/lan_script" android:defaultValue=""
+			android:entries="@array/script_names" android:entryValues="@array/script_values" />
+		<CheckBoxPreference android:title="Skip wpa_supplicant"
+			android:summary="Configure wifi directly" android:key="@string/lan_wext"  android:defaultValue="true" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="Advanced">
+		<CheckBoxPreference android:title="Start DHCP"
+			android:summary="Start DHCP" android:key="@string/dhcp_start"
+			android:defaultValue="false" />
+		<PreferenceScreen android:title="DHCP"
+			android:summary="LAN Host Configuration" android:dependency="dhcp_start">
+			<EditTextPreference android:title="First Host"
+				android:key="@string/dhcp_firsthost" android:defaultValue="100"
+				android:numeric="integer" android:singleLine="true" />
+			<EditTextPreference android:title="Number of Hosts"
+				android:key="@string/dhcp_numhosts" android:defaultValue="100"
+				android:numeric="integer" android:singleLine="true" />
+			<EditTextPreference android:title="Lease Time (seconds)"
+				android:key="@string/dhcp_leasetime" android:defaultValue="1200"
+				android:numeric="integer" android:singleLine="true" />
+			<net.rize.mesh.IPPreference android:title="DNS 1 (optional)"
+				android:key="@string/dhcp_dns1" android:singleLine="true" />
+			<net.rize.mesh.IPPreference android:title="DNS 2 (optional)"
+				android:key="@string/dhcp_dns2" android:singleLine="true" />
+		</PreferenceScreen>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="Interfaces">
+		<CheckBoxPreference android:title="Start WAN"
+			android:summary="Start WAN" android:key="@string/wan_start"
+			android:defaultValue="false" />
+		<EditTextPreference android:title="WAN"
+			android:key="@string/if_wan" android:defaultValue=""
+			android:hint="leave empty to autodetect" android:singleLine="true"
+			android:dependency="@string/wan_start" />
+		<EditTextPreference android:title="LAN"
+			android:key="@string/if_lan" android:defaultValue=""
+			android:hint="leave empty to autodetect" android:singleLine="true" />
+	</PreferenceCategory>
+</PreferenceScreen>
