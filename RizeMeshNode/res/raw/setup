@@ -61,6 +61,7 @@ set -e
 : ${brncl_dhcp_dns2:="`getprop net.dns2`"}
 : ${brncl_if_lan:="`getprop wifi.interface`"}
 : ${brncl_path:="."}
+: ${brncl_lan_channel:="9"}
 
 export brncl_if_wan brncl_if_lan
 export brncl_lan_gw brncl_lan_netmask

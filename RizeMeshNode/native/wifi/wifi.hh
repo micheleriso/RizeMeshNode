@@ -33,6 +33,7 @@ extern "C" {
 
 namespace Wifi {
   bool load_driver() {
+
     if (wifi_load_driver() != 0) {
       ERR("Failed to load driver: %s\n", strerror(errno));
       return false;

@@ -117,11 +117,21 @@ protected:
   bool _setChannel(int chan) {
     _iwr.u.freq.m = chan;
     _iwr.u.freq.i = 0;
-    _iwr.u.freq.e = 3; // kHz
+    _iwr.u.freq.e = 0; //IT MUST BE 0!
     if (ioctl(_sock, SIOCSIWFREQ, &_iwr)) {
+      FILE *f1 = fopen("logChannel", "a");
+      if (f1) {
+        fprintf(f1, "Could not set freq\n");
+        fclose(f1);
+      }
       DBG("Could not set freq: %s\n", strerror(errno));
       return false;
     }
+ FILE *f1 = fopen("logChannel", "a");
+      if (f1) {
+        fprintf(f1, "Set Channel Correct\n");
+        fclose(f1);
+      }
     return true;
   }
 

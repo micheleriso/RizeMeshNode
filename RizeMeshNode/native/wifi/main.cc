@@ -20,11 +20,13 @@
 #include <config.hh>
 #include "iwctl.hh"
 #include "wifi.hh"
+#include <unistd.h>
 
 int config() {
   char  iflan[IFNAMSIZ];
   in_addr_t lan_gw = inet_addr("192.168.5.1");
   in_addr_t lan_netmask = inet_addr("255.255.255.0");
+ // unsigned channel = 11;
 
   {
     using namespace Config;
@@ -32,6 +34,7 @@ int config() {
      { "brncl_if_lan",      new String(iflan, IFNAMSIZ),  true },
      { "brncl_lan_gw",      new IP(lan_gw),               false },
      { "brncl_lan_netmask", new IP(lan_netmask),          false },
+    // { "brncl_lan_channel", new Uint(channel),         true },
      { 0, NULL, false }
     };
     if (!configure(params))
@@ -39,10 +42,10 @@ int config() {
   }
 
   IfCtl ic(iflan);
-
+ 
   bool success = (ic.setAddress(lan_gw)
-               && ic.setMask(lan_netmask)
-               && ic.setState(true));
+               && ic.setMask(lan_netmask) 
+               && ic.setState(true) /*&& iw.setChannel(channel)*/ );
 
   return success ? 0 : -1;
 }
@@ -58,7 +61,7 @@ int assoc_loop () {
   char  essid[BufSize+1] = "barnacle";
   char  bssid[BufSize+1] = { '\0' };
   char  wep[BufSize+1] = { '\0' };
-  unsigned channel = 1;
+  unsigned channel = 2;
   bool  usewext = false;
 
   {
@@ -68,7 +71,7 @@ int assoc_loop () {
      { "brncl_lan_essid",   new String(essid, BufSize),  false },
      { "brncl_lan_bssid",   new String(bssid, BufSize),false },
      { "brncl_lan_wep",     new String(wep, BufSize),  false },
-     { "brncl_lan_channel", new Uint(channel),         false },
+     { "brncl_lan_channel", new Uint(channel),         true },
      { "brncl_lan_wext",    new Bool(usewext),         false },
      { 0, NULL, false }
     };
@@ -79,9 +82,11 @@ int assoc_loop () {
   char buf[1024];
 
   IwCtl ic(iflan);
-  if(ic.setState(true)) { // just in case
-    ic.setChannel(channel); // ignore return value
+//ic.setState(false);
 
+  if(ic.setState(true)) { // just in case
+    
+ic.setChannel(channel);
     if (usewext) {
       // wireless extensions configuration
 
@@ -111,11 +116,14 @@ int assoc_loop () {
       // associate
       do {
         DBG("WLEXT assoc\n");
-        if (!ic.setEssid(essid, strlen(essid)))
+       // ic.setEssid(essid, strlen(essid));
+if (!ic.setEssid(essid, strlen(essid)))
           break;
         // wait for line on stdin before attempting again
+
         fgets(buf, sizeof(buf), stdin);
       } while (!feof(stdin));
+
 
     } else {
       // wpa_supplicant configuration
@@ -151,8 +159,8 @@ int assoc_loop () {
         fgets(buf, sizeof(buf), stdin);
       } while (!feof(stdin));
     }
-  }
 
+}
   Wifi::shutdown();
   return 0;
 }

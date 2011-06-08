@@ -27,7 +27,7 @@ set -e
 
 : ${brncl_path:="."}
 
-exec wget http://127.0.0.1:2006/all -O ./log.dat
-
+#exec wget http://127.0.0.1:2006/all -O ./log.dat # Per Olsrd 0.6.1
+exec wget http://127.0.0.1:2006 -O ./log.dat
 
 

@@ -28,7 +28,9 @@ Prerequisites:
 To build native components enter Rize Mesh Node root directory and run                                                                                                                                                     
 $NDK/ndk-build                                                                                                                                                                                                       
                                                                                                                                                                                                                      
-where NDK=path-to-your-ndk-directory                                                                                                                                                                                 
+where NDK=path-to-your-ndk-directory
+
+After build copy wifi, dhcp, libhardware_legacy.so into res/raw directory.                                                                                                                                                                                 
                                                                                                                                                                                                                      
 To build the Android app import the existing project into Eclipse and export                                                                                                                                         
 an .apk file.

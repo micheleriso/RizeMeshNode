@@ -206,13 +206,13 @@ public class StatusActivity extends android.app.TabActivity {
 			return (new AlertDialog.Builder(this))
 			.setIcon(android.R.drawable.ic_dialog_alert)
 			.setTitle("Root Access")
-			.setMessage("Barnacle requires 'su' to access the hardware! Please, make sure you have root access.")
-			.setPositiveButton("Help", new DialogInterface.OnClickListener() {
+			.setMessage("RizeMeshNode requires 'su' to access the hardware! Please, make sure you have root access.")
+			/*.setPositiveButton("Help", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Uri uri = Uri.parse(getString(R.string.rootUrl));
 					startActivity(new Intent(Intent.ACTION_VIEW, uri));
-				}})
+				}})*/
 				.setNegativeButton("Close", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) { removeDialog(DLG_ROOT); }})
