@@ -46,8 +46,11 @@ type ip >/dev/null 2>&1 && ip route del table gprs default >/dev/null 2>&1
 #Start OLSRD as Daemon 
 #/data/local/bin/olsrd &
 
-./olsrd -f ./olsrd_conf 2> /dev/null > /dev/null &
+#Serve a dare il tempo al nat (se attivo) di cambiare l'olsr_conf
+sleep 3
 
+./olsrd -f ./olsrd_conf 2> /dev/null > /dev/null &
+echo "olsrd is running!"
 # the association loop
 ./wifi assoc
 

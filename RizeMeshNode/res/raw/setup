@@ -85,6 +85,9 @@ echo "iptables -F 2>/dev/null ">nat
 echo "iptables -t nat -F 2>/dev/null" >>nat
 echo "iptables -t nat -A POSTROUTING -o "$brncl_if_wan" -j MASQUERADE 2>/dev/null" >> nat
 
+# appendo la notifica per l'instradamento su internet al file di configurazione 
+echo "echo \"Hna4{ 0.0.0.0 0.0.0.0 }\" >> olsrd_conf " >> nat
+echo "chmod 666 olsrd_conf" >> nat
+
 chmod 750 wifi dhcp run shutdown_olsr kill_olsr olsrd get_info nat nat_sleep start_dhcp dhcp_avvio
 exec su -c ${1:-${brncl_path}/run}
-

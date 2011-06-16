@@ -55,6 +55,7 @@ public class StatusActivity extends android.app.TabActivity {
 	private TextView textUpload;
 	private TextView textDownloadRate;
 	private TextView textUploadRate;
+	private TextView mlog;
 
 	final static int DLG_ABOUT = 0;
 	final static int DLG_ROOT = 1;
@@ -68,6 +69,13 @@ public class StatusActivity extends android.app.TabActivity {
 		nf.setMinimumIntegerDigits(1);
 	}
 
+	public void buttonOff(){//TODO: setta l'immagine iniziale sul bottone
+		onoff = (ToggleButton) findViewById(R.id.onoff);
+		onoff.setChecked(false);
+		onoff.setBackgroundDrawable(getResources().getDrawable(R.drawable.start));
+		mlog.setText("Olsrd is not running!\n");
+	}
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,13 +86,19 @@ public class StatusActivity extends android.app.TabActivity {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setProgressBarIndeterminate(true);
 		setContentView(R.layout.main);
-		final TextView mlog=(TextView)findViewById(R.id.mlog_info);
+		mlog=(TextView)findViewById(R.id.mlog_info);
 		mlog.setGravity(1);
 		mlog.setAutoLinkMask(1);
 		mlog.setLinksClickable(true);
 		mlog.setText("Olsrd is not running!\n");
 		// control interface
 		onoff = (ToggleButton) findViewById(R.id.onoff);
+		
+		if (app.processUp()){//TODO: Quando si riapre l'app(rimasta in background) si passa da qui?
+			onoff.setBackgroundDrawable(getResources().getDrawable(R.drawable.stop));
+			mlog.setText("HttpInfo address is:\nhttp://"+app.prefs.getString("lan_gw", "localhost")+":1978/all");
+		}
+		
 		onoff.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

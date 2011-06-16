@@ -27,15 +27,10 @@ ClearScreen     yes
 # Example Internet gateway:
 # 0.0.0.0 0.0.0.0
 
-Hna4
-{
-# Internet gateway
-#    0.0.0.0   0.0.0.0
-
-# specific small networks reachable through this node
-#    15.15.0.0 255.255.255.0
-#    15.16.0.0 255.255.255.0
-}
+#Hna4
+#{
+#0.0.0.0 0.0.0.0
+#}
 
 # HNA IPv6 routes
 # syntax: netaddr prefix

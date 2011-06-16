@@ -27,6 +27,10 @@ cd ${brncl_path:-.}
 iptables -F
 iptables -t nat -F
 
+# ripristino il file di configurazione senza il nat, se esiste il backup
+sed -i -e '/Hna4{ 0.0.0.0 0.0.0.0 }/d' olsrd_conf
+chmod 666 olsrd_conf
+
 killall olsrd 2>/dev/null
 
 #Kill Dhcpd

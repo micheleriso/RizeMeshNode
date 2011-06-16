@@ -360,7 +360,8 @@ public class BarnacleService extends android.app.Service {
 			}
 			break;
 		case MSG_STOP:
-			if (state == STATE_STOPPED) return;
+			if ((state == STATE_STOPPED)&& (process == null))
+				return;
 			stopProcess();
 			log(false, getString(R.string.stopped));
 			state = STATE_STOPPED;
@@ -620,6 +621,13 @@ public class BarnacleService extends android.app.Service {
         return false;*/
 		return true;
 	}
+	
+	public boolean processUp(){//TODO: comunica se il processo è attivo
+		if(process != null)
+			return true;
+		
+		return false;
+	}
 
 	private void stopProcess() {
 		if (process != null) {
@@ -663,6 +671,7 @@ public class BarnacleService extends android.app.Service {
 			Log.v(TAG, "Failed to kill OLSRD",e.fillInStackTrace());
 
 		}
+		app.buttonOff();
 	}
 
 	@Override

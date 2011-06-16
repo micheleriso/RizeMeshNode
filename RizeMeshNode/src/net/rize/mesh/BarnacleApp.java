@@ -83,6 +83,17 @@ public class BarnacleApp extends android.app.Application {
 
     private List<ScanResult> lastScanResult;
     private boolean shouldDisableWifi;
+    
+    public void buttonOff(){//TODO: setta lo sfondo del bottone
+    	statusActivity.buttonOff();
+    }
+    
+    public boolean processUp(){//TODO: per sapere se il processo è attivo
+    	if(service == null){
+    		return false;
+    	}
+    	return service.processUp();
+    }
 
     private BroadcastReceiver scanReceiver = new BroadcastReceiver() {
         @Override
